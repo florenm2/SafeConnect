@@ -1,0 +1,5 @@
+﻿{
+    "connectionString": "mongodb://mary:1234@jello.modulusmongo.net:27017/d8exuWun",
+    "apiUrl": "http://localhost:3000/api",
+    "secret": "secret code 1234567"
+}

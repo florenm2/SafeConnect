@@ -15,6 +15,7 @@ service.getByUsername = getByUsername;
 module.exports = service;
 
 function getById(_id) {
+    
     var deferred = Q.defer();
 
     db.purchaseHistory.findById(_id, function (err, ph) {

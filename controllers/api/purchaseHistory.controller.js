@@ -39,10 +39,10 @@ function registerPurchaseHistory(req, res) {
 }
 
 function getCurrentPurchaseHistory(req, res) {
-    purchaseHistoryService.getById(req.ph.sub)
-        .then(function (purchaseHistory) {
-            if (ph) {
-                res.send(ph);
+    purchaseHistoryService.getById(req.params.sub)
+        .then(function (user) {
+            if (user) {
+                res.send(user);
             } else {
                 res.sendStatus(404);
             }

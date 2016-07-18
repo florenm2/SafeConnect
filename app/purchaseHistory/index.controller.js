@@ -19,7 +19,7 @@
                 vm.user = user;
                 console.log(user);
             }).then(function () {
-                PurchaseHistoryService.GetByUsername(vm.user.username).then(function (ph) {
+                PurchaseHistoryService.GetCurrent(vm.user).then(function (ph) {
                 vm.ph = ph;
             })
             });

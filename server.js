@@ -18,7 +18,7 @@ app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/user
 // routes
 app.use('/login', require('./controllers/login.controller'));
 app.use('/register', require('./controllers/register.controller'));
-//app.use('/about', require('./controllers/about.controller'));
+app.use('/about', require('./controllers/about.controller'));
 
 app.use('/app', require('./controllers/app.controller'));
 app.use('/api/users', require('./controllers/api/users.controller'));

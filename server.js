@@ -19,14 +19,16 @@ app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/user
 app.use('/login', require('./controllers/login.controller'));
 app.use('/register', require('./controllers/register.controller'));
 app.use('/about', require('./controllers/about.controller'));
+app.use('/specifications', require('./controllers/specifications.controller'));
+app.use('/purchase', require('./controllers/purchase.controller'));
 
 app.use('/app', require('./controllers/app.controller'));
 app.use('/api/users', require('./controllers/api/users.controller'));
 app.use('/api/purchaseHistory', require('./controllers/api/purchaseHistory.controller'));
 
-// make '/app' default route
+// make '/about' default route
 app.get('/', function (req, res) {
-    return res.redirect('/app');
+    return res.redirect('/about');
 });
 
 // start server

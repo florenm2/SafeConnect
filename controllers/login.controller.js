@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
         req.session.token = body.token;
 
         // redirect to returnUrl
-        var returnUrl = req.query.returnUrl && decodeURIComponent(req.query.returnUrl) || '/';
+        var returnUrl = req.query.returnUrl && decodeURIComponent(req.query.returnUrl) || '/app';
         res.redirect(returnUrl);
     });
 });

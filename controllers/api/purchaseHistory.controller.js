@@ -13,7 +13,7 @@ router.delete('/:_id', deletePurchaseHistory);
 module.exports = router;
 
 function authenticatePurchaseHistory(req, res) {
-    purchaseHistoryService.authenticate(req.body.purchaseHistoryname, req.body.password)
+    purchaseHistoryService.authenticate(req.body.username, req.body.password)
         .then(function (token) {
             if (token) {
                 // authentication successful
@@ -39,7 +39,7 @@ function registerPurchaseHistory(req, res) {
 }
 
 function getCurrentPurchaseHistory(req, res) {
-    purchaseHistoryService.getById(req.params.sub)
+    purchaseHistoryService.getById(req.user.sub)
         .then(function (user) {
             if (user) {
                 res.send(user);

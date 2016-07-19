@@ -7,6 +7,8 @@ var userService = require('services/user.service');
 router.post('/authenticate', authenticateUser);
 router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
+router.get('/', getAll);
+router.get('/:username', getByUsername);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
 
@@ -43,6 +45,34 @@ function getCurrentUser(req, res) {
         .then(function (user) {
             if (user) {
                 res.send(user);
+            } else {
+                res.sendStatus(404);
+            }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function getByUsername(req, res) {
+    userService.getByUsername(req.body.firstName)
+        .then(function (user) {
+            if (user) {
+                res.send(user);
+            } else {
+                res.sendStatus(404);
+            }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function getAll(req, res) {
+    userService.getAll()
+        .then(function(userArray) {
+            if (userArray) {
+                res.send(userArray);
             } else {
                 res.sendStatus(404);
             }

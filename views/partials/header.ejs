@@ -2,36 +2,35 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Login</title>
+    <title>SafeConnect Solar</title>
     
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     
     <style type="text/css">
 
+        .navbar-brand { position: relative; z-index: 2; }
 
-.navbar-brand { position: relative; z-index: 2; }
+        .navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; }
 
-.navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; }
+        .navbar .navbar-collapse { position: relative; }
+        .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 22px; }
 
-.navbar .navbar-collapse { position: relative; }
-.navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 22px; }
+        .navbar .nav-collapse { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 80px; width: 100%; }
+        .navbar.navbar-default .nav-collapse { background-color: #f8f8f8; }
+        .navbar.navbar-inverse .nav-collapse { background-color: #222; }
+        .navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
+        .nav-collapse>li { float: right; }
 
-.navbar .nav-collapse { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 80px; width: 100%; }
-.navbar.navbar-default .nav-collapse { background-color: #f8f8f8; }
-.navbar.navbar-inverse .nav-collapse { background-color: #222; }
-.navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
-.nav-collapse>li { float: right; }
+        .btn.btn-circle { border-radius: 50px; }
+        .btn.btn-outline { background-color: transparent; }
 
-.btn.btn-circle { border-radius: 50px; }
-.btn.btn-outline { background-color: transparent; }
-
-@media screen and (max-width: 767px) {
-    .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 15px; padding-right: 15px; } 
-    
-    .navbar .nav-collapse { margin: 7.5px auto; padding: 0; }
-    .navbar .nav-collapse .navbar-form { margin: 0; }
-    .nav-collapse>li { float: none; }
-}
+        @media screen and (max-width: 767px) {
+            .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 15px; padding-right: 15px; } 
+            
+            .navbar .nav-collapse { margin: 7.5px auto; padding: 0; }
+            .navbar .nav-collapse .navbar-form { margin: 0; }
+            .nav-collapse>li { float: none; }
+        }
         .form-container {
             width: 400px;
             margin: auto;
@@ -44,58 +43,41 @@
         }
     </style>
 
+    </head>
+
 <div class="container-fluid">
     
-    <!-- Second navbar for sign in -->
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-2">
+    <nav role="navigation" class="navbar navbar-default">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/about">SafeConnect Solar</a>
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar-collapse-2">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/about">Home</a></li>
+        </button>
+        <a href="/about" class="navbar-brand">SafeConnect</a>
+    </div>
+    <!-- Collection of nav links and other content for toggling -->
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/about">Home</a></li>
             <li><a href="/specifications">Specifications</a></li>
             <li><a href="/purchase">Purchase</a></li>
-            <li><a href="#">Company</a></li>
+            <li><a href="/company">Company</a></li>
             <li><a href="/app">My Account</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="/contact">Contact</a></li>
             <li>
-              <a class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">Sign in</a>
-            </li>
-          </ul>
-          <div class="collapse nav navbar-nav nav-collapse" id="nav-collapse2">
-            <form class="navbar-form navbar-right form-inline" role="form">
-              <div class="form-group">
-                <label class="sr-only" for="Email">Email</label>
-                <input type="email" class="form-control" id="Email" placeholder="Email" autofocus required />
-              </div>
-              <div class="form-group">
-                <label class="sr-only" for="Password">Password</label>
-                <input type="password" class="form-control" id="Password" placeholder="Password" required />
-              </div>
-              <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-          </div>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container -->
-    </nav><!-- /.navbar -->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/app">Login</a></li>
+        </ul>
+    </div>
+</nav>
     
     
 </div><!-- /.container-fluid -->
 
 
 
-
-
-</head>
 <body>

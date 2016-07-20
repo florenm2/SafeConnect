@@ -12,33 +12,38 @@
 
         $stateProvider
             .state('home', {
-                url: '/app/',
+                url: '/',
                 templateUrl: 'home/index.html',
                 controller: 'Home.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'home' }
             })
-            .state('account', {
-                url: '/app/account',
-                templateUrl: 'account/index.html',
-                controller: 'Account.IndexController',
-                controllerAs: 'vm',
-                data: { activeTab: 'account' }
-            })
             .state('home.list', {
-                url: '/app/list',
+                url: '/list',
                 templateUrl: 'partial-home-list.html',
                 controller: function($scope) {
                 $scope.stuffs = ['1', '2', '3'];
                 }
             })
-            // nested list with just some random string data
             .state('home.paragraph', {
-                url: '/app/paragraph',
+                url: '/paragraph',
                 template: 'Mary is awesome.'
                 })
+            .state('account', {
+                url: '/account',
+                templateUrl: 'account/index.html',
+                controller: 'Account.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'account' }
+            })
+            .state('account.address', {
+                url: '/address',
+                templateUrl: 'account/address/index.html',
+                controller: 'Address.IndexController',
+                controllerAs: 'vm'
+            })
             .state('purchaseHistory', {
-                url: '/app/purchaseHistory',
+                url: '/purchaseHistory',
                 templateUrl: 'purchaseHistory/index.html',
                 controller: 'PurchaseHistory.IndexController',
                 controllerAs: 'vm',

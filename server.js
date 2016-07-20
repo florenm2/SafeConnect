@@ -21,10 +21,13 @@ app.use('/register', require('./controllers/register.controller'));
 app.use('/about', require('./controllers/about.controller'));
 app.use('/specifications', require('./controllers/specifications.controller'));
 app.use('/purchase', require('./controllers/purchase.controller'));
+app.use('/company', require('./controllers/company.controller'));
+app.use('/contact', require('./controllers/contact.controller'));
 
 app.use('/app', require('./controllers/app.controller'));
 app.use('/api/users', require('./controllers/api/users.controller'));
 app.use('/api/purchaseHistory', require('./controllers/api/purchaseHistory.controller'));
+app.use('/api/address', require('./controllers/api/address.controller'));
 
 // make '/about' default route
 app.get('/', function (req, res) {

@@ -12,21 +12,21 @@
 
         $stateProvider
             .state('home', {
-                url: '/',
+                url: '/app/',
                 templateUrl: 'home/index.html',
                 controller: 'Home.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'home' }
             })
             .state('account', {
-                url: '/account',
+                url: '/app/account',
                 templateUrl: 'account/index.html',
                 controller: 'Account.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }
             })
             .state('home.list', {
-                url: '/list',
+                url: '/app/list',
                 templateUrl: 'partial-home-list.html',
                 controller: function($scope) {
                 $scope.stuffs = ['1', '2', '3'];
@@ -34,11 +34,11 @@
             })
             // nested list with just some random string data
             .state('home.paragraph', {
-                url: '/paragraph',
+                url: '/app/paragraph',
                 template: 'Mary is awesome.'
                 })
             .state('purchaseHistory', {
-                url: '/purchaseHistory',
+                url: '/app/purchaseHistory',
                 templateUrl: 'purchaseHistory/index.html',
                 controller: 'PurchaseHistory.IndexController',
                 controllerAs: 'vm',

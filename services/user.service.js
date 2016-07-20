@@ -12,17 +12,17 @@ var service = {};
 service.authenticate = authenticate;
 service.getById = getById;
 service.getAll = getAll;
-service.getByUsername = getByUsername;
+service.getByEmail = getByEmail;
 service.create = create;
 service.update = update;
 service.delete = _delete;
 
 module.exports = service;
 
-function authenticate(username, password) {
+function authenticate(email, password) {
     var deferred = Q.defer();
 
-    db.users.findOne({ username: username }, function (err, user) {
+    db.users.findOne({ email: email }, function (err, user) {
         if (err) deferred.reject(err);
 
         if (user && bcrypt.compareSync(password, user.hash)) {
@@ -56,10 +56,10 @@ function getById(_id) {
 }
 
 
-function getByUsername(firstName) {
+function getByEmail(email) {
     var deferred = Q.defer();
 
-    db.users.find({ firstName: firstName }, function (err, user) {
+    db.users.find({ email: email }, function (err, user) {
         if (err) deferred.reject(err);
 
         if (user) {
@@ -77,16 +77,19 @@ function getByUsername(firstName) {
 function getAll() {
     var deferred = Q.defer();
 
-    db.users.find().toArray({}, function(err, userArray) {
+    db.users.find({}, function(err, userArray) {
         if (err) deferred.reject(err);
 
-        if (userArray) {
-            // return user (without hashed password)
-            deferred.resolve();
-        } else {
-            // user not found
-            deferred.resolve();
-        }
+
+        userArray.each(function(err, res) {
+            
+            //console.log(res);
+            deferred.resolve(res);
+        });
+
+        deferred.resolve(userArray);
+        
+
     });
 
     return deferred.promise;
@@ -97,13 +100,13 @@ function create(userParam) {
 
     // validation
     db.users.findOne(
-        { username: userParam.username },
+        { email: userParam.email },
         function (err, user) {
             if (err) deferred.reject(err);
 
             if (user) {
-                // username already exists
-                deferred.reject('Username "' + userParam.username + '" is already taken');
+                // account already exists
+                deferred.reject('Email "' + userParam.email + '" is already taken');
             } else {
                 createUser();
             }
@@ -135,16 +138,16 @@ function update(_id, userParam) {
     db.users.findById(_id, function (err, user) {
         if (err) deferred.reject(err);
 
-        if (user.username !== userParam.username) {
-            // username has changed so check if the new username is already taken
+        if (user.email !== userParam.email) {
+            // account has changed so check if the new account is already taken
             db.users.findOne(
-                { username: userParam.username },
+                { email: userParam.email },
                 function (err, user) {
                     if (err) deferred.reject(err);
 
                     if (user) {
-                        // username already exists
-                        deferred.reject('Username "' + req.body.username + '" is already taken')
+                        // account already exists
+                        deferred.reject('Email "' + req.body.email + '" is already taken')
                     } else {
                         updateUser();
                     }
@@ -159,7 +162,7 @@ function update(_id, userParam) {
         var set = {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
-            username: userParam.username,
+            email: userParam.email,
         };
 
         // update password if it was entered

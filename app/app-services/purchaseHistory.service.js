@@ -11,7 +11,10 @@
         service.GetCurrent = GetCurrent;
         service.GetAll = GetAll;
         service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
+        service.GetByEmail = GetByEmail;
+        service.Create = Create;
+        service.Update = Update;
+        service.Delete = Delete;
 
         return service;
 
@@ -27,8 +30,20 @@
             return $http.get('/api/purchaseHistory/' + _id).then(handleSuccess, handleError);
         }
 
-        function GetByUsername(username) {
-            return $http.get('/api/purchaseHistory/' + username).then(handleSuccess, handleError);
+        function GetByEmail(email) {
+            return $http.get('/api/purchaseHistory/' + email).then(handleSuccess, handleError);
+        }
+
+        function Create(user) {
+            return $http.post('/api/purchaseHistory', user).then(handleSuccess, handleError);
+        }
+
+        function Update(user) {
+            return $http.put('/api/purchaseHistory/' + user._id, user).then(handleSuccess, handleError);
+        }
+
+        function Delete(_id) {
+            return $http.delete('/api/purchaseHistory/' + _id).then(handleSuccess, handleError);
         }
 
         // private functions

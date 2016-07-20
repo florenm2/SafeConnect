@@ -2,20 +2,21 @@
 var express = require('express');
 var router = express.Router();
 var userService = require('services/user.service');
+var purchaseHistoryService = require('services/purchaseHistory.service');
 
 // routes
 router.post('/authenticate', authenticateUser);
 router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
 router.get('/', getAll);
-router.get('/:username', getByUsername);
+router.get('/:email', getByEmail);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
 
 module.exports = router;
 
 function authenticateUser(req, res) {
-    userService.authenticate(req.body.username, req.body.password)
+    userService.authenticate(req.body.email, req.body.password)
         .then(function (token) {
             if (token) {
                 // authentication successful
@@ -32,6 +33,7 @@ function authenticateUser(req, res) {
 
 function registerUser(req, res) {
     userService.create(req.body)
+        .then(purchaseHistoryService.create(req.body))
         .then(function () {
             res.sendStatus(200);
         })
@@ -54,8 +56,8 @@ function getCurrentUser(req, res) {
         });
 }
 
-function getByUsername(req, res) {
-    userService.getByUsername(req.body.firstName)
+function getByEmail(req, res) {
+    userService.getByEmail(req.body)
         .then(function (user) {
             if (user) {
                 res.send(user);
@@ -72,7 +74,11 @@ function getAll(req, res) {
     userService.getAll()
         .then(function(userArray) {
             if (userArray) {
-                res.send(userArray);
+                userArray.each(function(err, result) {
+                    console.log(result);
+                    res.send();
+                });
+                
             } else {
                 res.sendStatus(404);
             }

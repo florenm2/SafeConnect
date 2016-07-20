@@ -17,10 +17,11 @@
             // get current user
             UserService.GetCurrent().then(function (user) {
                 vm.user = user;
-                console.log(user);
+                console.log(vm.user);
             }).then(function () {
                 PurchaseHistoryService.GetCurrent(vm.user).then(function (ph) {
                 vm.ph = ph;
+                console.log(vm.ph);
             })
             });
             

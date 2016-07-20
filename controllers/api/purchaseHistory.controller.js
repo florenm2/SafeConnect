@@ -4,16 +4,18 @@ var router = express.Router();
 var purchaseHistoryService = require('services/purchaseHistory.service');
 
 // routes
-router.post('/authenticate', authenticatePurchaseHistory);
-router.post('/register', registerPurchaseHistory);
-router.get('/current', getCurrentPurchaseHistory);
-router.put('/:_id', updatePurchaseHistory);
-router.delete('/:_id', deletePurchaseHistory);
+router.post('/authenticate', authenticateUser);
+router.post('/register', registerUser);
+router.get('/current', getCurrentUser);
+router.get('/', getAll);
+router.get('/:email', getByEmail);
+router.put('/:_id', updateUser);
+router.delete('/:_id', deleteUser);
 
 module.exports = router;
 
-function authenticatePurchaseHistory(req, res) {
-    purchaseHistoryService.authenticate(req.body.username, req.body.password)
+function authenticateUser(req, res) {
+    purchaseHistoryService.authenticate(req.body.email, req.body.password)
         .then(function (token) {
             if (token) {
                 // authentication successful
@@ -28,7 +30,7 @@ function authenticatePurchaseHistory(req, res) {
         });
 }
 
-function registerPurchaseHistory(req, res) {
+function registerUser(req, res) {
     purchaseHistoryService.create(req.body)
         .then(function () {
             res.sendStatus(200);
@@ -38,7 +40,7 @@ function registerPurchaseHistory(req, res) {
         });
 }
 
-function getCurrentPurchaseHistory(req, res) {
+function getCurrentUser(req, res) {
     purchaseHistoryService.getById(req.user.sub)
         .then(function (user) {
             if (user) {
@@ -52,14 +54,42 @@ function getCurrentPurchaseHistory(req, res) {
         });
 }
 
-function updatePurchaseHistory(req, res) {
-    var purchaseHistoryId = req.purchaseHistory.sub;
-    if (req.params._id !== purchaseHistoryId) {
+function getByEmail(req, res) {
+    purchaseHistoryService.getByEmail(req.body.firstName)
+        .then(function (user) {
+            if (user) {
+                res.send(user);
+            } else {
+                res.sendStatus(404);
+            }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function getAll(req, res) {
+    purchaseHistoryService.getAll()
+        .then(function(userArray) {
+            if (userArray) {
+                res.send(userArray);
+            } else {
+                res.sendStatus(404);
+            }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function updateUser(req, res) {
+    var userId = req.user.sub;
+    if (req.params._id !== userId) {
         // can only update own account
         return res.status(401).send('You can only update your own account');
     }
 
-    purchaseHistoryService.update(purchaseHistoryId, req.body)
+    purchaseHistoryService.update(userId, req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -68,14 +98,14 @@ function updatePurchaseHistory(req, res) {
         });
 }
 
-function deletePurchaseHistory(req, res) {
-    var purchaseHistoryId = req.purchaseHistory.sub;
-    if (req.params._id !== purchaseHistoryId) {
+function deleteUser(req, res) {
+    var userId = req.user.sub;
+    if (req.params._id !== userId) {
         // can only delete own account
         return res.status(401).send('You can only delete your own account');
     }
 
-    purchaseHistoryService.delete(purchaseHistoryId)
+    purchaseHistoryService.delete(userId)
         .then(function () {
             res.sendStatus(200);
         })
